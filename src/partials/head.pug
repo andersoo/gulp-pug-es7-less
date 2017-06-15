@@ -1,0 +1,26 @@
+- var iconsSet = iconset || {};
+- iconsSet.favi = '/images/favicon.png';
+- iconsSet.icon = '/images/yeoman.png';
+
+- var siteTitle = siteTitle || SimpleStaticSite;
+head
+  meta(charset='utf-8')
+  meta(http-equiv='x-ua-compatible', content='ie=edge')
+  title #{siteTitle}
+  meta(name='description', content='')
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  meta(name='theme-color', content='#222222')
+  link(rel='apple-touch-icon', href=iconsSet.icon)
+  link(rel='icon', href=iconsSet.favi)
+
+
+  //- vendor styles
+  // build:css /css/vendors.css
+  link(rel='stylesheet', href='/css/vendors/bootstrap.css')
+  link(rel='stylesheet', href='/css/vendors/font-awesome.css')
+  // endbuild
+
+  //- user styles
+  // build:css /css/main.css
+  link(rel='stylesheet', href='/css/main.css')
+  // endbuild

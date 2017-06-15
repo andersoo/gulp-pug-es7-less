@@ -1,0 +1,20 @@
+
+//-vendor scripts
+// build:js /js/vendors.js
+script(src='/js/vendors/jquery.slim.js')
+script(src='/js/vendors/fetch.js')
+script(src='/js/vendors/tether.js')
+script(src='/js/vendors/bootstrap.js')
+// endbuild
+
+//- user scrtips
+// build:js /js/main.js
+script(src='/js/main.js')
+// endbuild
+
+if globals && globals.ga
+  script.
+    window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+    ga('create', '#{globals.ga}' ,'auto');ga('send','pageview')
+      
+  script(src='https://www.google-analytics.com/analytics.js', async='', defer='')

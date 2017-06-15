@@ -1,0 +1,27 @@
+body {
+  background-color: lavender;
+}
+a:focus,.btn:focus,button:focus{
+  outline: none;
+}
+.container {
+  background-color: white;
+}
+.navbar-brand{
+  img{
+    margin-top: -5px;
+    margin-right: 5px;
+  }
+}
+.navbar-inverse .navbar-toggler{
+  cursor: pointer;
+  transition: border 500ms;
+  &.collapsed{
+    border-color: rgba(255, 255, 255, 0);
+  }
+  
+  &:hover{
+    border-color: rgba(255, 255, 255, 0.3);
+    color:white;
+  }
+}

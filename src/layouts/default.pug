@@ -1,0 +1,28 @@
+doctype html
+html.no-js(lang='')
+
+  - var globals = {};
+  - globals.ga = 'UA-XXXXX-Y';
+  - globals.iconsSet = {};
+  - globals.iconsSet.favi = '/images/favicon.png';
+  - globals.iconsSet.icon = '/images/yeoman.png'
+
+  include ../partials/head.pug
+
+  body
+    //if lte IE 9
+      p.browserupgrade
+        | You are using an 
+        strong outdated
+        |  browser. Please 
+        a(href='http://browsehappy.com/') upgrade your browser
+        |  to improve your experience and security.
+
+    include ../partials/nav.pug
+    
+    .container
+      block body
+        p Hello world! This is HTML5 Boilerplate.
+
+    include ../partials/foot.pug
+

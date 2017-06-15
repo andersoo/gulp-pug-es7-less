@@ -1,0 +1,22 @@
+{
+  "name": "grunt-pug-es7-less",
+  "version": "1.0.0",
+  "description": "simple site template with gulp pug es7 (babel) less",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git"
+  },
+  "author": {
+    "name": "icosa",
+    "email": "icosahedron@hkcnews.com"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "jquery": "^3.1.1",
+    "font-awesome": "fontawesome#^4.7.0",
+    "bootstrap": "v4.0.0-alpha.6",
+    "tether": "^1.4.0",
+    "fetch": "^2.0.2"
+  }
+}
