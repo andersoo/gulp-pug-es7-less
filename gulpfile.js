@@ -34,37 +34,39 @@ var settings = {
   siteName: (typeof pkg.name === 'string') ? pkg.name : 'Simple Site'
 };
 
-gulp.task('connect', function() {
-  return new Promise(function(resolve,reject){
-    if(settings.build.dist === false){
-      plugins.connect.server({
-        name: settings.siteName,
-        root: settings.output,
-        host: settings.host,
-        port: settings.port,
-        livereload: true
-      });
-    }else{
-      plugins.connect.server({
-        name: settings.siteName,
-        root: settings.dist,
-        host: settings.host,
-        port: settings.port,
-        livereload: false
-      });
-    }
-    resolve();
-  });
+gulp.task('connect', function(done) {
+  if(settings.build.dist === false){
+    plugins.connect.server({
+      name: settings.siteName,
+      root: settings.output,
+      host: settings.host,
+      port: settings.port,
+      livereload: true
+    });
+  }else{
+    plugins.connect.server({
+      name: settings.siteName,
+      root: settings.dist,
+      host: settings.host,
+      port: settings.port,
+      livereload: false
+    });
+  }
+  process.on('SIGINT', function() { done(); });
 });
 
-gulp.task('watch', function(){
-  return new Promise(function(resolve,reject){
-    gulp.watch('src/pages/**/*.pug', gulp.series('html'));
-    gulp.watch('src/less/**/*.less', gulp.series('styles'));
-    gulp.watch(['src/scripts/**/*.js', '!src/scripts/vendors/*'], gulp.series('scripts'));
-    gulp.watch('src/images/*', gulp.series('assets'));
+var promiseResolver = function(resolve, conditionFx, condition){
+  if( conditionFx(condition)){
     resolve();
-  });
+  }
+}
+gulp.task('watch', function(done){
+  gulp.watch('src/pages/**/*.pug', gulp.series('html')).on('end', function(){console.log('hihi');});
+  gulp.watch('src/less/**/*.less', gulp.series('styles'));
+  gulp.watch(['src/scripts/**/*.js', '!src/scripts/vendors/*'], gulp.series('scripts'));
+  gulp.watch('src/images/*', gulp.series('assets'));
+
+  process.on('SIGINT', function() { done(); });
 });
 
 gulp.task('vendor:scripts', function(){
@@ -154,16 +156,13 @@ gulp.task('dist', gulp.series('usemin', 'imagemin'));
 
 gulp.task('build', gulp.parallel('vendors', 'assets', 'html', 'scripts', 'styles'));
 
-// gulp.task('serve', function(){ 
-//   if(argv.dist){
-//     settings.build.dist = true;
-//     return gulp.parallel('dist', 'connect', 'watch');
-//   }else{
-//     return gulp.parallel('build', 'connect', 'watch');
-//   }
-// });
+var serveSeq =  gulp.series('build', gulp.parallel('connect', 'watch'));
+if(argv.dist){
+  serveSeq = gulp.series('dist', gulp.parallel('connect', 'watch'));
+}
+gulp.task('serve', serveSeq);
 
-gulp.task('serve', gulp.series( 'build', 'connect', 'watch') );
+
 
 gulp.task('default', function(){
   console.log('build  : build site at public by compiling src');
