@@ -61,7 +61,7 @@ var promiseResolver = function(resolve, conditionFx, condition){
   }
 }
 gulp.task('watch', function(done){
-  gulp.watch('src/pages/**/*.pug', gulp.series('html')).on('end', function(){console.log('hihi');});
+  gulp.watch(['src/pages/**/*.pug','src/partials/**/*.pug','src/layouts/**/*.pug'], gulp.series('html'));
   gulp.watch('src/less/**/*.less', gulp.series('styles'));
   gulp.watch(['src/scripts/**/*.js', '!src/scripts/vendors/*'], gulp.series('scripts'));
   gulp.watch('src/images/*', gulp.series('assets'));
@@ -78,6 +78,7 @@ gulp.task('vendor:scripts', function(){
     ])
     .pipe(gulp.dest('public/js/vendors'));
 });
+
 gulp.task('vendor:styles', function(){
   return gulp.src([
       'node_modules/tether/dist/css/tether.css',
